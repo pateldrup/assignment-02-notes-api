@@ -315,3 +315,33 @@ exports.getNotesByCategory = async (req, res) => {
     }
 };
 
+exports.getNotesByStatus = async (req, res) => {
+    try {
+        const { isPinned } = req.params;
+
+        if (isPinned !== "true" && isPinned !== "false") {
+            return res.status(400).json({
+                success: false,
+                message: "isPinned must be true or false",
+                data: null
+            });
+        }
+
+        const pinned = isPinned === "true";
+        const notes = await Note.find({ isPinned: pinned });
+
+        return res.status(200).json({
+            success: true,
+            message: "Fetched all pinned notes",
+            count: notes.length,
+            data: notes
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Server Error",
+            data: null
+        });
+    }
+};
+
