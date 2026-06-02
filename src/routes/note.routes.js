@@ -9,6 +9,7 @@ const {
     getPinnedNotes,
     filterByCategory,
     filterByDateRange,
+    paginateNotes,
     createNote,
     getAllNotes,
     getNoteSummary,
@@ -31,6 +32,9 @@ router.get("/filter", filterNotes);
 router.get("/filter/pinned", getPinnedNotes);
 router.get("/filter/category", filterByCategory);
 router.get("/filter/date-range", filterByDateRange);
+
+// Pagination
+router.get("/paginate", paginateNotes);
 
 // CRUD single-item routes LAST
 router.post("/", createNote);
