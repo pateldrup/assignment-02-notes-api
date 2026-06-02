@@ -1,0 +1,581 @@
+{
+  "info": {
+    "_postman_id": "c2a3d4e5-f6b7-8a9b-0c1d-e2f3a4b5c6d7",
+    "name": "Assignment-2 Notes Management REST API",
+    "description": "Postman Collection to test all 19 endpoints (CRUD, Route Params, Query Params, Pagination, Sorting) for Assignment-2 Notes App.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CRUD Operations",
+      "item": [
+        {
+          "name": "1. Create a Note",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Team standup agenda\",\n  \"content\": \"Discuss sprint blockers and deployment plan\",\n  \"category\": \"work\",\n  \"isPinned\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            },
+            "description": "Create a single note in the database."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Create Multiple Notes (Bulk)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": [\n    { \"title\": \"Note one\",   \"content\": \"Content one\",   \"category\": \"work\"     },\n    { \"title\": \"Note two\",   \"content\": \"Content two\",   \"category\": \"study\"    },\n    { \"title\": \"Note three\", \"content\": \"Content three\", \"category\": \"personal\" }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notes/bulk",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "bulk"
+              ]
+            },
+            "description": "Create multiple notes at once using insertMany."
+          },
+          "response": []
+        },
+        {
+          "name": "3. Get All Notes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            },
+            "description": "Fetch all notes from the database."
+          },
+          "response": []
+        },
+        {
+          "name": "4. Get Note By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/{{note_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{note_id}}"
+              ]
+            },
+            "description": "Fetch a single note by its database ObjectId."
+          },
+          "response": []
+        },
+        {
+          "name": "5. Replace Note Completely (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Completely new title\",\n  \"content\": \"Completely new content\",\n  \"category\": \"personal\",\n  \"isPinned\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notes/{{note_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{note_id}}"
+              ]
+            },
+            "description": "Completely overwrite an existing note. Fields not provided will be reset to defaults."
+          },
+          "response": []
+        },
+        {
+          "name": "6. Update Specific Fields (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isPinned\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notes/{{note_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{note_id}}"
+              ]
+            },
+            "description": "Partially update an existing note. Other fields remain unchanged."
+          },
+          "response": []
+        },
+        {
+          "name": "7. Delete a Note",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/{{note_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{note_id}}"
+              ]
+            },
+            "description": "Delete a single note by its database ObjectId."
+          },
+          "response": []
+        },
+        {
+          "name": "8. Delete Multiple Notes (Bulk)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"64b1f2c3e4d5a6b7c8d9e0f1\",\n    \"64b1f2c3e4d5a6b7c8d9e0f2\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notes/bulk",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "bulk"
+              ]
+            },
+            "description": "Delete multiple notes by providing an array of ObjectIds in the request body."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Route Parameters",
+      "item": [
+        {
+          "name": "9. Get Notes by Category (Route Param)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/category/work",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "category",
+                "work"
+              ]
+            },
+            "description": "Fetch all notes belonging to a specific category (work, personal, or study) using route parameters."
+          },
+          "response": []
+        },
+        {
+          "name": "10. Get Notes by Pinned Status (Route Param)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/status/true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "status",
+                "true"
+              ]
+            },
+            "description": "Fetch all notes filtered by pin status (true or false) using route parameters."
+          },
+          "response": []
+        },
+        {
+          "name": "11. Get Note Summary (Route Param)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/{{note_id}}/summary",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{note_id}}",
+                "summary"
+              ]
+            },
+            "description": "Return only selected fields (title, category, isPinned, createdAt) for a note without returning its content."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Query Parameters",
+      "item": [
+        {
+          "name": "12. General Filter (Query Params)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/filter?category=work&isPinned=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "filter"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "work"
+                },
+                {
+                  "key": "isPinned",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Accepts optional query params (category, isPinned) to dynamically filter notes."
+          },
+          "response": []
+        },
+        {
+          "name": "13. Get Pinned Notes (Query Params)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/filter/pinned?category=work",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "filter",
+                "pinned"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "work"
+                }
+              ]
+            },
+            "description": "Returns only pinned notes, optionally narrowed down further by category."
+          },
+          "response": []
+        },
+        {
+          "name": "14. Filter by Category Name (Query Param)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/filter/category?name=work",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "filter",
+                "category"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "work"
+                }
+              ]
+            },
+            "description": "Filter notes by category name using a query parameter named 'name'."
+          },
+          "response": []
+        },
+        {
+          "name": "15. Filter by Date Range (Query Params)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/filter/date-range?from=2026-01-01&to=2026-12-31",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "filter",
+                "date-range"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-12-31"
+                }
+              ]
+            },
+            "description": "Fetch notes created between two dates passed as 'from' and 'to' query parameters."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pagination",
+      "item": [
+        {
+          "name": "16. Paginate All Notes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/paginate?page=1&limit=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "paginate"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Paginates all notes in the database using 'page' and 'limit' query params."
+          },
+          "response": []
+        },
+        {
+          "name": "17. Paginate by Category (Route Param + Query Params)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/paginate/category/work?page=1&limit=3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "paginate",
+                "category",
+                "work"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "Paginate notes within a specific category. Combines category as a route param with page/limit as query params."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sorting",
+      "item": [
+        {
+          "name": "18. Sort All Notes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/sort?sortBy=title&order=asc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "sort"
+              ],
+              "query": [
+                {
+                  "key": "sortBy",
+                  "value": "title"
+                },
+                {
+                  "key": "order",
+                  "value": "asc"
+                }
+              ]
+            },
+            "description": "Sort all notes using 'sortBy' (title, createdAt, updatedAt, category) and 'order' (asc, desc) query params."
+          },
+          "response": []
+        },
+        {
+          "name": "19. Sort Pinned Notes Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/sort/pinned?sortBy=createdAt&order=desc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "sort",
+                "pinned"
+              ],
+              "query": [
+                {
+                  "key": "sortBy",
+                  "value": "createdAt"
+                },
+                {
+                  "key": "order",
+                  "value": "desc"
+                }
+              ]
+            },
+            "description": "Return only pinned notes (isPinned: true) sorted by the client's chosen field."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://assignment-02-notes-api.vercel.app",
+      "type": "string"
+    },
+    {
+      "key": "note_id",
+      "value": "replace-with-actual-note-id",
+      "type": "string"
+    }
+  ]
+}
