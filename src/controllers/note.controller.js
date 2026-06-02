@@ -111,3 +111,50 @@ exports.getNoteById = async (req, res) => {
     }
 };
 
+exports.replaceNote = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid note ID",
+                data: null
+            });
+        }
+
+        const note = await Note.findByIdAndUpdate(
+            id,
+            req.body,
+            { new: true, overwrite: true, runValidators: true }
+        );
+
+        if (!note) {
+            return res.status(404).json({
+                success: false,
+                message: "Note not found",
+                data: null
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Note replaced successfully",
+            data: note
+        });
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                success: false,
+                message: Object.values(error.errors).map(val => val.message).join(', ') || error.message,
+                data: null
+            });
+        }
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Server Error",
+            data: null
+        });
+    }
+};
+

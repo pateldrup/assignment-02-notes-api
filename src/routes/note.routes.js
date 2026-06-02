@@ -4,7 +4,8 @@ const {
     createBulkNotes,
     createNote,
     getAllNotes,
-    getNoteById
+    getNoteById,
+    replaceNote
 } = require("../controllers/note.controller");
 
 // CRUD bulk routes first
@@ -14,5 +15,6 @@ router.post("/bulk", createBulkNotes);
 router.post("/", createNote);
 router.get("/", getAllNotes);
 router.get("/:id", getNoteById);
+router.put("/:id", replaceNote);
 
 module.exports = router;
