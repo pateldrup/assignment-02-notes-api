@@ -6,6 +6,7 @@ const {
     getNotesByCategory,
     getNotesByStatus,
     filterNotes,
+    getPinnedNotes,
     createNote,
     getAllNotes,
     getNoteSummary,
@@ -25,6 +26,7 @@ router.get("/status/:isPinned", getNotesByStatus);
 
 // Query param sections
 router.get("/filter", filterNotes);
+router.get("/filter/pinned", getPinnedNotes);
 
 // CRUD single-item routes LAST
 router.post("/", createNote);
