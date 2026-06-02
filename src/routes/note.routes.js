@@ -12,6 +12,7 @@ const {
     paginateNotes,
     paginateByCategory,
     sortNotes,
+    sortPinnedNotes,
     createNote,
     getAllNotes,
     getNoteSummary,
@@ -41,6 +42,7 @@ router.get("/paginate/category/:category", paginateByCategory);
 
 // Sorting
 router.get("/sort", sortNotes);
+router.get("/sort/pinned", sortPinnedNotes);
 
 // CRUD single-item routes LAST
 router.post("/", createNote);
