@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
     createBulkNotes,
+    deleteBulkNotes,
     createNote,
     getAllNotes,
     getNoteById,
@@ -12,6 +13,7 @@ const {
 
 // CRUD bulk routes first
 router.post("/bulk", createBulkNotes);
+router.delete("/bulk", deleteBulkNotes);
 
 // CRUD single-item routes LAST
 router.post("/", createNote);
