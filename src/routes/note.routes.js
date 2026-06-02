@@ -7,6 +7,7 @@ const {
     getNotesByStatus,
     createNote,
     getAllNotes,
+    getNoteSummary,
     getNoteById,
     replaceNote,
     updateNote,
@@ -24,6 +25,7 @@ router.get("/status/:isPinned", getNotesByStatus);
 // CRUD single-item routes LAST
 router.post("/", createNote);
 router.get("/", getAllNotes);
+router.get("/:id/summary", getNoteSummary);
 router.get("/:id", getNoteById);
 router.put("/:id", replaceNote);
 router.patch("/:id", updateNote);
