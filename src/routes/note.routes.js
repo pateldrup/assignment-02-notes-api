@@ -5,6 +5,7 @@ const {
     deleteBulkNotes,
     getNotesByCategory,
     getNotesByStatus,
+    filterNotes,
     createNote,
     getAllNotes,
     getNoteSummary,
@@ -21,6 +22,9 @@ router.delete("/bulk", deleteBulkNotes);
 // Route param sections
 router.get("/category/:category", getNotesByCategory);
 router.get("/status/:isPinned", getNotesByStatus);
+
+// Query param sections
+router.get("/filter", filterNotes);
 
 // CRUD single-item routes LAST
 router.post("/", createNote);
