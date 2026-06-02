@@ -10,6 +10,7 @@ const {
     filterByCategory,
     filterByDateRange,
     paginateNotes,
+    paginateByCategory,
     createNote,
     getAllNotes,
     getNoteSummary,
@@ -35,6 +36,7 @@ router.get("/filter/date-range", filterByDateRange);
 
 // Pagination
 router.get("/paginate", paginateNotes);
+router.get("/paginate/category/:category", paginateByCategory);
 
 // CRUD single-item routes LAST
 router.post("/", createNote);
